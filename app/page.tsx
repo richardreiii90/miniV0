@@ -102,7 +102,7 @@ export default function Home() {
         <h2 style={h2}>Settings</h2>
         <div style={grid2}>
           <label>Owner<br/><input value={owner} onChange={(e)=>setOwner(e.target.value)} placeholder="miusuarioorg" style={input}/></label>
-          <label>Repo<br/><input value={repo} onChange={(e)=>setRepo(e.target.value)} placeholder="mi-repo" style={input}/></label>
+          <label>Repo<br/><input value={repo} onChange={(e)=>setRepo(e.target.value)} placeholder="miniV0" style={input}/></label>
         </div>
         <div style={{display:'flex', gap:12, marginTop:12}}>
           <label>Base branch<br/><input value={base} onChange={(e)=>setBase(e.target.value)} placeholder="main" style={input}/></label>
@@ -158,7 +158,7 @@ function PatchViewer({ idx, p, owner, repo, base, selected, setSelected, fetchOr
       }
     })();
     return () => { mounted = false; }
-  }, [p.path, p.op, owner, repo, base]);
+  }, [p.path, p.op, owner, repo, base, fetchOriginal]);
 
   return (
     <div>
@@ -194,11 +194,10 @@ function guessLang(path: string): string {
   return 'plaintext';
 }
 
-const grid2: React.CSSProperties = { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, alignItems: 'end' };
-
 const card: React.CSSProperties = { background:'#121214', border:'1px solid #1e1e20', borderRadius:16, padding:16, marginBottom:16, boxShadow:'0 1px 0 #1a1a1c inset' };
 const h2: React.CSSProperties = { fontSize:18, margin:'0 0 8px' };
 const input: React.CSSProperties = { width:260, background:'#0f0f11', color:'#eee', border:'1px solid #27272a', borderRadius:10, padding:'8px 10px' };
 const textarea: React.CSSProperties = { width:'100%', background:'#0f0f11', color:'#eee', border:'1px solid #27272a', borderRadius:12, padding:'10px', minHeight:120 };
 const btn: React.CSSProperties = { background:'#2563eb', color:'#fff', border:'0', padding:'10px 14px', borderRadius:10, cursor:'pointer' };
 const btnAlt: React.CSSProperties = { background:'#10b981', color:'#0d0d0e', border:'0', padding:'10px 14px', borderRadius:10, cursor:'pointer' };
+const grid2: React.CSSProperties = { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, alignItems: 'end' };
