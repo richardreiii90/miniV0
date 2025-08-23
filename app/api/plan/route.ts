@@ -20,9 +20,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'prompt requerido' }, { status: 400 });
     }
 
-    const client = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY
-    });
+    const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
     const modelName = process.env.OPENAI_MODEL || 'gpt-4o-mini';
 
     const system = [
@@ -54,7 +52,6 @@ export async function POST(req: Request) {
       }`
     ].join('\n');
 
-    // Podés usar Responses API si tu cuenta lo permite; acá usamos chat completions por compatibilidad.
     const completion = await client.chat.completions.create({
       model: modelName,
       temperature: 0.2,
@@ -65,7 +62,6 @@ export async function POST(req: Request) {
     });
 
     const raw = completion.choices[0]?.message?.content || '';
-    // Intento robusto de parseo JSON
     const jsonStart = raw.indexOf('{');
     const jsonEnd = raw.lastIndexOf('}');
     if (jsonStart === -1 || jsonEnd === -1) {
@@ -76,11 +72,10 @@ export async function POST(req: Request) {
     let parsed: unknown;
     try {
       parsed = JSON.parse(sliced);
-    } catch (e) {
-      // Algunos modelos devuelven comillas incorrectas; intentamos arreglar
+    } catch {
       const fixed = sliced
-        .replace(/[\u201C\u201D]/g, '"')  // comillas tipográficas
-        .replace(/,\s*}/g, '}')          // trailing commas
+        .replace(/[\u201C\u201D]/g, '"')
+        .replace(/,\s*}/g, '}')
         .replace(/,\s*]/g, ']');
       parsed = JSON.parse(fixed);
     }
