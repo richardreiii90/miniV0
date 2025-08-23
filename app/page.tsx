@@ -194,6 +194,8 @@ function guessLang(path: string): string {
   return 'plaintext';
 }
 
+const grid2: React.CSSProperties = { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, alignItems: 'end' };
+
 const card: React.CSSProperties = { background:'#121214', border:'1px solid #1e1e20', borderRadius:16, padding:16, marginBottom:16, boxShadow:'0 1px 0 #1a1a1c inset' };
 const h2: React.CSSProperties = { fontSize:18, margin:'0 0 8px' };
 const input: React.CSSProperties = { width:260, background:'#0f0f11', color:'#eee', border:'1px solid #27272a', borderRadius:10, padding:'8px 10px' };
